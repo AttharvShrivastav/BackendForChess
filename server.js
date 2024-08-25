@@ -1,11 +1,14 @@
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8080 });
+// Use an environment variable for the port or default to 8080 if not set
+const PORT = process.env.PORT || 8080;
+
+const wss = new WebSocket.Server({ port: PORT });
 
 const clients = [];
 
 let gameState = {
-  board: Array(5).fill(null).map(() => Array(5).fill(null)), 
+  board: Array(5).fill(null).map(() => Array(5).fill(null)),
   players: {},
   currentPlayer: null,
 };
@@ -262,4 +265,4 @@ wss.on('connection', (ws) => {
   });
 });
 
-console.log('WebSocket server is running on ws://localhost:8080');
+console.log(`WebSocket server is running on ws://localhost:${PORT}`);
